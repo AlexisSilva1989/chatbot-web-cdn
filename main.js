@@ -1,4 +1,3 @@
-export const CHAT_URI = "http://localhost:3000/embedded-chat/351686848";
 export const CHAT_WIDTH = "360px";
 export const CHAT_HEIGTH = "384px";
 
@@ -89,6 +88,7 @@ class MessageWidget {
   constructor(position = "bottom-right") {
     this.position = this.getPosition(position);
     this.open = false;
+    this.url = this.getUrl()
     this.initialize();
     this.injectStyles();
   }
@@ -96,6 +96,7 @@ class MessageWidget {
   position = "";
   open = false;
   widgetContent = null;
+  url
   
   getPosition(position) {
     const [vertical, horizontal] = position.split("-");
@@ -103,6 +104,11 @@ class MessageWidget {
       [vertical]: "30px",
       [horizontal]: "30px"
     };
+  }
+
+  getUrl() {
+    const URL = new URLSearchParams(window.location.search).get("client");
+    return URL;
   }
 
   async initialize() {
@@ -154,7 +160,7 @@ class MessageWidget {
        */
       this.widgetContainer = document.createElement("iframe");
       this.widgetContainer.classList.add("widget__hidden", "widget__container");
-      this.widgetContainer.src = CHAT_URI;
+      this.widgetContainer.src = this.url;
       this.widgetContainer.width = CHAT_WIDTH;
       this.widgetContainer.height = CHAT_HEIGTH;
 
