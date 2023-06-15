@@ -1,3 +1,4 @@
+const URL = "https://chatbot-frontend-production-7968.up.railway.app/"
 export const CHAT_WIDTH = "360px";
 export const CHAT_HEIGTH = "384px";
 
@@ -107,8 +108,9 @@ class MessageWidget {
   }
 
   getUrl() {
-    const URL = new URLSearchParams(window.location.search).get("client");
-    return URL;
+    const HASH = document.currentScript.getAttribute("data-client");
+    console.log({HASH, })
+    return `${URL}${HASH}`;
   }
 
   async initialize() {
