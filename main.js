@@ -8,7 +8,7 @@ const styles = `
 }
 .widget__container {
   box-shadow: 0 0 18px 8px rgba(0, 0, 0, 0.1), 0 0 32px 32px rgba(0, 0, 0, 0.08);
-  right: -25px;
+  right: 0px;
   bottom: 75px;
   position: absolute;
   transition: max-height .2s ease;
@@ -96,8 +96,8 @@ class MessageWidget {
   getPosition(position) {
     const [vertical, horizontal] = position.split("-");
     return {
-      [vertical]: "30px",
-      [horizontal]: "30px"
+      [vertical]: "48px",
+      [horizontal]: "32px"
     };
   }
 
