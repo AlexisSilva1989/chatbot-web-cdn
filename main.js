@@ -1,4 +1,4 @@
-const URL = "https://chatbot-frontend-production-7968.up.railway.app/"
+const CHAT_URL = "https://chatbot-frontend-production-7968.up.railway.app/"
 export const CHAT_WIDTH = "360px";
 export const CHAT_HEIGTH = "384px";
 
@@ -124,11 +124,11 @@ class MessageWidget {
         urlParams,
         
       })
-      return `${URL}${urlParams}`
+      return `${CHAT_URL}${urlParams}`
     }
     
     
-    return `${URL}`
+    return `${CHAT_URL}`
   }
 
   async initialize() {
