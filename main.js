@@ -3,12 +3,6 @@ const CHAT_WIDTH = "360px";
 const CHAT_HEIGTH = "384px";
 
 const styles = `
-body {
-  height: 100vh;
-  width: 100%;
-  background-color: #000023;
-}
-
 .widget__container * {
   box-sizing: border-box;
 }
