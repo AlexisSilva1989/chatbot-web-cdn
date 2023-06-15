@@ -1,4 +1,4 @@
-const CHAT_URL = "https://chatbot-frontend-production-7968.up.railway.app/"
+const CHAT_URL = "https://chatbot-frontend-production-7968.up.railway.app/embedded-chat/"
 export const CHAT_WIDTH = "360px";
 export const CHAT_HEIGTH = "384px";
 
