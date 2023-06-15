@@ -110,7 +110,7 @@ class MessageWidget {
   getUrl() {
     const scriptAttr = document.currentScript?.getAttribute("src");
     
-    if (urlParams !== null) {
+    if (scriptAttr !== null) {
       const urlParams = new URL(scriptAttr).searchParams.get("client")
       console.log({
         currentScript:  document.currentScript,
