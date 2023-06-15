@@ -108,8 +108,8 @@ class MessageWidget {
   }
 
   getUrl() {
-    const HASH = document.currentScript.getAttribute("data-client");
-    console.log({HASH, })
+    const HASH = document.currentScript?.getAttribute("data-client") ?? "";
+    console.log({HASH, script: document.currentScript})
     return `${URL}${HASH}`;
   }
 
