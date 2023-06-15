@@ -108,7 +108,7 @@ class MessageWidget {
   }
 
   getUrl() {
-    const scriptAttr = document.currentScript?.getAttribute("src");
+    const scriptAttr = window.querySelector("#embedded-chat-script");
     console.log({location: window.location})
     console.log({scriptAttr})
 
@@ -135,6 +135,7 @@ class MessageWidget {
      */
     const container = document.createElement("div");
     container.style.position = "fixed";
+    container.style.zIndex = 50
     Object.keys(this.position).forEach(
       (key) => (container.style[key] = this.position[key])
     );
