@@ -114,6 +114,7 @@ class MessageWidget {
     console.log({scriptAttr, scriptTag})
 
     if (scriptAttr && scriptAttr !== null) {
+      console.log(scriptAttr.getAttribute("src"))
       const urlBase = new URL(scriptAttr.getAttribute("src"))
       console.log({urlBase})
       const urlParams = urlBase.searchParams.get("client")
