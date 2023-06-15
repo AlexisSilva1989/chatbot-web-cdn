@@ -1,8 +1,8 @@
 const CHAT_URL = "https://chatbot-frontend-production-7968.up.railway.app/embedded-chat/"
-export const CHAT_WIDTH = "360px";
-export const CHAT_HEIGTH = "384px";
+const CHAT_WIDTH = "360px";
+const CHAT_HEIGTH = "384px";
 
-export const styles = `
+const styles = `
 body {
   height: 100vh;
   width: 100%;
@@ -50,7 +50,7 @@ body {
 }
 `;
 
-export const MESSAGE_ICON = `
+const MESSAGE_ICON = `
 <svg
 id="Capa_1"
 data-name="Capa 1"
@@ -68,7 +68,7 @@ height="24"
 </svg>
 `
 
-export const CLOSE_ICON = `
+const CLOSE_ICON = `
 <svg
 viewBox="0 0 20 20"
 fill="none"
@@ -109,25 +109,14 @@ class MessageWidget {
 
   getUrl() {
     const scriptAttr = document.querySelector("#embedded-chat-script");
-    const scriptTag = document.getElementById("embedded-chat-script")
-    console.log({location: window.location})
-    console.log({scriptAttr, scriptTag})
-
     if (scriptAttr && scriptAttr !== null) {
-      console.log(scriptAttr.getAttribute("src"))
       const urlBase = new URL(scriptAttr.getAttribute("src"))
-      console.log({urlBase})
       const urlParams = urlBase.searchParams.get("client")
-      console.log({
-        currentScript:  document.currentScript,
-        scriptAttr,
-        urlParams,
-        
-      })
-      return `${CHAT_URL}${urlParams}`
+      const urlChat = urlBase.searchParams.get("url")
+
+      return `${urlChat}${urlParams}`
     }
-    
-    
+
     return `${CHAT_URL}`
   }
 
