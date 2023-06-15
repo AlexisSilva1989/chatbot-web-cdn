@@ -108,9 +108,10 @@ class MessageWidget {
   }
 
   getUrl() {
-    const scriptAttr = window.querySelector("#embedded-chat-script");
+    const scriptAttr = document.querySelector("#embedded-chat-script");
+    const scriptTag = document.getElementById("embedded-chat-script")
     console.log({location: window.location})
-    console.log({scriptAttr})
+    console.log({scriptAttr, scriptTag})
 
     if (scriptAttr && scriptAttr !== null) {
       const urlParams = new URL(scriptAttr).searchParams.get("client")
