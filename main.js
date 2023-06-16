@@ -84,6 +84,13 @@ height="24"
 </svg>
 `
 
+const POSITION_Y = {
+  "base": "0",
+  "high": "48px",
+  "higher": "112px",
+  "highest": "176px"
+}
+
 class MessageWidget {
   constructor(position = "bottom-right") {
     this.position = this.getPosition(position);
@@ -100,9 +107,21 @@ class MessageWidget {
   
   getPosition(position) {
     const [vertical, horizontal] = position.split("-");
+    const scriptAttr = document.querySelector("#embedded-chat-script");
+    let X = "32px"
+    let Y = "48px"
+
+    if (scriptAttr && scriptAttr !== null) {
+      const urlBase = new URL(scriptAttr.getAttribute("src"))
+      const position = urlBase.searchParams.get("position")
+      if(position) {
+        Y = POSITION_Y[position];
+      }
+    }
+
     return {
-      [vertical]: "48px",
-      [horizontal]: "32px"
+      [vertical]: Y,
+      [horizontal]: X
     };
   }
 
