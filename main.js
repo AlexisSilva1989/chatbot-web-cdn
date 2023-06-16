@@ -1,6 +1,6 @@
 const CHAT_URL = "https://chatbot-frontend-production-7968.up.railway.app/embedded-chat/"
 const CHAT_WIDTH = "360px";
-const CHAT_HEIGTH = "384px";
+const CHAT_HEIGTH = "600px";
 
 const styles = `
 .widget__container * {
@@ -9,10 +9,10 @@ const styles = `
 .widget__container {
   box-shadow: 0 0 18px 8px rgba(0, 0, 0, 0.1), 0 0 32px 32px rgba(0, 0, 0, 0.08);
   right: 0px;
-  bottom: 75px;
+  bottom: 0px;
   position: absolute;
   transition: max-height .2s ease;
-  background-color: #e6e6e6a6;
+  background-color: #FFF;
   border-radius: 10px;
   border: none;
 }
@@ -26,6 +26,11 @@ const styles = `
   align-items: center;
   color: white;
   transition: all .3s ease;
+}
+.widget__icon--close {
+  position: absolute;
+  bottom: 553px;
+  right: 30px;
   z-index: 50;
 }
 .widget__hidden {
@@ -148,15 +153,16 @@ class MessageWidget {
      */
     const closeIconElement = document.createElement("span");
     closeIconElement.innerHTML = CLOSE_ICON;
-    closeIconElement.classList.add("widget__icon", "widget__hidden");
+    closeIconElement.classList.add("widget__icon", "widget__icon--close", "widget__hidden");
     this.closeIcon = closeIconElement;
+    closeIconElement.addEventListener("click", this.toggleOpen.bind(this));
 
     /**
      * Append both icon created to the button element and add a click
      * event
      */
       buttonContainer.appendChild(this.widgetIcon);
-      buttonContainer.appendChild(this.closeIcon);
+      container.appendChild(this.closeIcon);
       buttonContainer.addEventListener("click", this.toggleOpen.bind(this));
 
       /**
@@ -167,6 +173,7 @@ class MessageWidget {
       this.widgetContainer.src = this.url;
       this.widgetContainer.width = CHAT_WIDTH;
       this.widgetContainer.height = CHAT_HEIGTH;
+
 
       /**
        * Invoke createWidgetContent() method;
