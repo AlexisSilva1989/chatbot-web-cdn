@@ -153,7 +153,7 @@ class MessageWidget {
 
       return messageIcon
     }
-    return MESSAGE_ICON
+    return undefined
   }
 
   async initialize() {
