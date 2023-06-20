@@ -46,7 +46,7 @@ const styles = `
   border: none;
   display: flex;
   background-color: #24b47e;
-  padding: 16px;
+  padding: 12px;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -111,7 +111,7 @@ class MessageWidget {
   open = false;
   widgetContent = null;
   url;
-  messageIcon = "https://chatbot-qualitzer.s3.us-east-1.amazonaws.com/next-s3-uploads/bcc1f749-9cde-4c03-a15e-e144846532e8/favicon.png"
+  messageIcon = undefined
   getPosition(position) {
     const [vertical, horizontal] = position.split("-");
     const scriptAttr = document.querySelector("#embedded-chat-script");
