@@ -17,10 +17,16 @@ const styles = `
   border: none;
 }
 
+.widget__img {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
 .widget__icon {
   cursor: pointer;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,7 +46,7 @@ const styles = `
   border: none;
   display: flex;
   background-color: #24b47e;
-  padding: 18px;
+  padding: 16px;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -96,6 +102,7 @@ class MessageWidget {
     this.position = this.getPosition(position);
     this.open = false;
     this.url = this.getUrl()
+    this.message = this.getMessageIcon();
     this.initialize();
     this.injectStyles();
   }
@@ -103,8 +110,8 @@ class MessageWidget {
   position = "";
   open = false;
   widgetContent = null;
-  url
-  
+  url;
+  messageIcon = "https://chatbot-qualitzer.s3.us-east-1.amazonaws.com/next-s3-uploads/bcc1f749-9cde-4c03-a15e-e144846532e8/favicon.png"
   getPosition(position) {
     const [vertical, horizontal] = position.split("-");
     const scriptAttr = document.querySelector("#embedded-chat-script");
@@ -138,6 +145,17 @@ class MessageWidget {
     return `${CHAT_URL}`
   }
 
+  getMessageIcon() {
+    const scriptAttr = document.querySelector("#embedded-chat-script");
+    if (scriptAttr && scriptAttr !== null) {
+      const urlBase = new URL(scriptAttr.getAttribute("src"))
+      const messageIcon = urlBase.searchParams.get("icon")
+
+      return messageIcon
+    }
+    return undefined
+  }
+
   async initialize() {
 
     document.querySelector("body").addEventListener('click', () => console.log("body clicked"))
@@ -163,8 +181,18 @@ class MessageWidget {
      * Create a span for Widget Icon
      */
     const widgetIconElement = document.createElement("span");
-    widgetIconElement.innerHTML = MESSAGE_ICON;
     widgetIconElement.classList.add("widget__icon");
+
+    if( this.messageIcon !== undefined) {
+      const widgetImageIconElement = document.createElement("img");
+      widgetImageIconElement.src = this.messageIcon;
+      widgetImageIconElement.classList.add("widget__img")
+
+      widgetIconElement.appendChild(widgetImageIconElement);
+    } else {
+      widgetIconElement.innerHTML = MESSAGE_ICON;
+    }
+
     this.widgetIcon = widgetIconElement;
 
     /**
