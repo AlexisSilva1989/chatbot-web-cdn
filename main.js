@@ -61,8 +61,8 @@ id="Capa_1"
 data-name="Capa 1"
 xmlns="http://www.w3.org/2000/svg"
 viewBox="0 0 28.15 31.81"
-width="24"
-height="24"
+width="32"
+height="32"
 >
 <rect x="4.08" y="9.91" width="20" height="14" fill="#020202" />
 <path
@@ -153,7 +153,7 @@ class MessageWidget {
 
       return messageIcon
     }
-    return undefined
+    return MESSAGE_ICON
   }
 
   async initialize() {
