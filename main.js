@@ -183,7 +183,7 @@ class MessageWidget {
     const widgetIconElement = document.createElement("span");
     widgetIconElement.classList.add("widget__icon");
 
-    if( this.messageIcon !== undefined) {
+    if( this.messageIcon !== undefined && this.messageIcon !== null) {
       const widgetImageIconElement = document.createElement("img");
       widgetImageIconElement.src = this.messageIcon;
       widgetImageIconElement.classList.add("widget__img")
