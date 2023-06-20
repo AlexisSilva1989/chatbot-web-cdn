@@ -102,7 +102,7 @@ class MessageWidget {
     this.position = this.getPosition(position);
     this.open = false;
     this.url = this.getUrl()
-    this.message = this.getMessageIcon();
+    this.messageIcon = this.getMessageIcon();
     this.initialize();
     this.injectStyles();
   }
