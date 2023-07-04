@@ -45,7 +45,7 @@ const styles = `
 .button__container {
   border: none;
   display: flex;
-  background-color: #24b47e;
+  background-color: #742eb3;
   padding: 12px;
   border-radius: 50%;
   cursor: pointer;
