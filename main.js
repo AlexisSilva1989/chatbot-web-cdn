@@ -1,5 +1,6 @@
-const CHAT_URL = "https://chatbot-frontend-production-7968.up.railway.app/embedded-chat/"
-const CHAT_WIDTH = "360px";
+const CHAT_URL =
+  "https://chatbot-frontend-production-7968.up.railway.app/embedded-chat/";
+const CHAT_WIDTH = "400px";
 const CHAT_HEIGTH = "600px";
 
 const styles = `
@@ -35,8 +36,8 @@ const styles = `
 }
 .widget__icon--close {
   position: absolute;
-  bottom: 553px;
-  right: 30px;
+  bottom: 543px;
+  right: 24px;
   z-index: 50;
 }
 .widget__hidden {
@@ -45,7 +46,6 @@ const styles = `
 .button__container {
   border: none;
   display: flex;
-  background-color: #742eb3;
   padding: 12px;
   border-radius: 50%;
   cursor: pointer;
@@ -71,7 +71,7 @@ height="32"
   fill="#fefdff"
 />
 </svg>
-`
+`;
 
 const CLOSE_ICON = `
 <svg
@@ -88,21 +88,22 @@ height="24"
   strokeWidth="0.1"
 />
 </svg>
-`
+`;
 
 const POSITION_Y = {
-  "base": "0",
-  "high": "48px",
-  "higher": "112px",
-  "highest": "176px"
-}
+  base: "0",
+  high: "48px",
+  higher: "112px",
+  highest: "176px",
+};
 
 class MessageWidget {
   constructor(position = "bottom-right") {
     this.position = this.getPosition(position);
     this.open = false;
-    this.url = this.getUrl()
+    this.url = this.getUrl();
     this.messageIcon = this.getMessageIcon();
+    this.buttonColor = this.getButtonColor();
     this.initialize();
     this.injectStyles();
   }
@@ -111,61 +112,75 @@ class MessageWidget {
   open = false;
   widgetContent = null;
   url;
-  messageIcon = undefined
+  messageIcon = undefined;
+  buttonColor = "#742eb3";
   getPosition(position) {
     const [vertical, horizontal] = position.split("-");
     const scriptAttr = document.querySelector("#embedded-chat-script");
-    let X = "32px"
-    let Y = "48px"
+    let X = "32px";
+    let Y = "48px";
 
     if (scriptAttr && scriptAttr !== null) {
-      const urlBase = new URL(scriptAttr.getAttribute("src"))
-      const position = urlBase.searchParams.get("position")
-      if(position) {
+      const urlBase = new URL(scriptAttr.getAttribute("src"));
+      const position = urlBase.searchParams.get("position");
+      if (position) {
         Y = POSITION_Y[position];
       }
     }
 
     return {
       [vertical]: Y,
-      [horizontal]: X
+      [horizontal]: X,
     };
   }
 
   getUrl() {
     const scriptAttr = document.querySelector("#embedded-chat-script");
     if (scriptAttr && scriptAttr !== null) {
-      const urlBase = new URL(scriptAttr.getAttribute("src"))
-      const urlParams = urlBase.searchParams.get("client")
-      const urlChat = urlBase.searchParams.get("url")
+      const urlBase = new URL(scriptAttr.getAttribute("src"));
+      const urlParams = urlBase.searchParams.get("client");
+      const urlChat = urlBase.searchParams.get("url");
 
-      return `${urlChat}${urlParams}`
+      return `${urlChat}${urlParams}`;
     }
 
-    return `${CHAT_URL}`
+    return `${CHAT_URL}`;
   }
 
   getMessageIcon() {
     const scriptAttr = document.querySelector("#embedded-chat-script");
     if (scriptAttr && scriptAttr !== null) {
-      const urlBase = new URL(scriptAttr.getAttribute("src"))
-      const messageIcon = urlBase.searchParams.get("icon")
+      const urlBase = new URL(scriptAttr.getAttribute("src"));
+      const messageIcon = urlBase.searchParams.get("icon");
 
-      return messageIcon
+      return messageIcon;
     }
-    return undefined
+    return undefined;
+  }
+
+  getButtonColor() {
+    const scriptAttr = document.querySelector("#embedded-chat-script");
+    if (scriptAttr && scriptAttr !== null) {
+      const urlBase = new URL(scriptAttr.getAttribute("src"));
+      console.log({ urlBase });
+      const buttonColor = urlBase.searchParams.get("color");
+      console.log({ buttonColor });
+      return `#${buttonColor}`;
+    }
+    return "#742eb3";
   }
 
   async initialize() {
-
-    document.querySelector("body").addEventListener('click', () => console.log("body clicked"))
+    document
+      .querySelector("body")
+      .addEventListener("click", () => console.log("body clicked"));
 
     /**
      * Create a Container Div
      */
     const container = document.createElement("div");
     container.style.position = "fixed";
-    container.style.zIndex = 50
+    container.style.zIndex = 50;
     Object.keys(this.position).forEach(
       (key) => (container.style[key] = this.position[key])
     );
@@ -176,6 +191,7 @@ class MessageWidget {
      */
     const buttonContainer = document.createElement("button");
     buttonContainer.classList.add("button__container");
+    buttonContainer.style.backgroundColor = this.buttonColor;
 
     /**
      * Create a span for Widget Icon
@@ -183,10 +199,10 @@ class MessageWidget {
     const widgetIconElement = document.createElement("span");
     widgetIconElement.classList.add("widget__icon");
 
-    if( this.messageIcon !== undefined && this.messageIcon !== null) {
+    if (this.messageIcon !== undefined && this.messageIcon !== null) {
       const widgetImageIconElement = document.createElement("img");
       widgetImageIconElement.src = this.messageIcon;
-      widgetImageIconElement.classList.add("widget__img")
+      widgetImageIconElement.classList.add("widget__img");
 
       widgetIconElement.appendChild(widgetImageIconElement);
     } else {
@@ -200,7 +216,11 @@ class MessageWidget {
      */
     const closeIconElement = document.createElement("span");
     closeIconElement.innerHTML = CLOSE_ICON;
-    closeIconElement.classList.add("widget__icon", "widget__icon--close", "widget__hidden");
+    closeIconElement.classList.add(
+      "widget__icon",
+      "widget__icon--close",
+      "widget__hidden"
+    );
     this.closeIcon = closeIconElement;
     closeIconElement.addEventListener("click", this.toggleOpen.bind(this));
 
@@ -208,31 +228,29 @@ class MessageWidget {
      * Append both icon created to the button element and add a click
      * event
      */
-      buttonContainer.appendChild(this.widgetIcon);
-      container.appendChild(this.closeIcon);
-      buttonContainer.addEventListener("click", this.toggleOpen.bind(this));
+    buttonContainer.appendChild(this.widgetIcon);
+    container.appendChild(this.closeIcon);
+    buttonContainer.addEventListener("click", this.toggleOpen.bind(this));
 
-      /**
-       * Create a container for widget (IFrame)
-       */
-      this.widgetContainer = document.createElement("iframe");
-      this.widgetContainer.classList.add("widget__hidden", "widget__container");
-      this.widgetContainer.src = this.url;
-      this.widgetContainer.width = CHAT_WIDTH;
-      this.widgetContainer.height = CHAT_HEIGTH;
+    /**
+     * Create a container for widget (IFrame)
+     */
+    this.widgetContainer = document.createElement("iframe");
+    this.widgetContainer.classList.add("widget__hidden", "widget__container");
+    this.widgetContainer.src = this.url;
+    this.widgetContainer.width = CHAT_WIDTH;
+    this.widgetContainer.height = CHAT_HEIGTH;
 
+    /**
+     * Invoke createWidgetContent() method;
+     */
+    // this.createWidgetContent();
 
-      /**
-       * Invoke createWidgetContent() method;
-       */
-      // this.createWidgetContent();
-
-      /**
-       * Append the widget's content and the button to the container
-       */
-      container.appendChild(this.widgetContainer);
-      container.appendChild(buttonContainer);
-
+    /**
+     * Append the widget's content and the button to the container
+     */
+    container.appendChild(this.widgetContainer);
+    container.appendChild(buttonContainer);
   }
 
   // createWidgetContent() {
@@ -250,21 +268,18 @@ class MessageWidget {
   toggleOpen() {
     this.open = !this.open;
 
-    if(this.open) {
-      console.log("open")
+    if (this.open) {
+      console.log("open");
       this.widgetIcon.classList.add("widget__hidden");
       this.closeIcon.classList.remove("widget__hidden");
       this.widgetContainer.classList.remove("widget__hidden");
     } else {
-      
-      console.log("close")
+      console.log("close");
       this.widgetIcon.classList.remove("widget__hidden");
       this.closeIcon.classList.add("widget__hidden");
       this.widgetContainer.classList.add("widget__hidden");
     }
-
   }
-
 }
 
 function initializeWidget() {
